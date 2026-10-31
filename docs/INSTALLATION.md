@@ -43,7 +43,7 @@ The initial baseline was verified on the ESP32 CYD 2.8-inch board. ESP32-S3 2.8-
 
 ## 3. Connect the CYD to Pi-Star
 
-1. Connect the CYD to a USB port on the Raspberry Pi.
+1. Connect the CYD to a USB port on the Raspberry Pi using a USB data cable.
 2. SSH into Pi-Star.
 3. Identify the serial device:
 
@@ -51,20 +51,44 @@ The initial baseline was verified on the ESP32 CYD 2.8-inch board. ESP32-S3 2.8-
 ls -l /dev/ttyUSB* /dev/ttyACM* 2>/dev/null
 ```
 
-The verified baseline used `/dev/ttyUSB0` (CH340/CH341 USB serial). Your device name may be different.
+The verified baseline used `/dev/ttyUSB0` (CH340/CH341 USB serial). Your device name may be different. Keep the correct device name for the service configuration step.
 
-## 4. Copy the Pi-Star files
+## 4. Install the Pi-Star bridge
 
-Copy these two repository files to the Pi-Star user's home directory (for example, with SCP or an SFTP client):
+Pi-Star commonly runs with its root filesystem in read-only mode. **Switch to read-write mode before downloading or copying files onto Pi-Star.**
 
-- `Pi-Star/pistar_cyd_bridge.py`
-- `Pi-Star/pistar-cyd-bridge.service`
-
-Then connect to Pi-Star over SSH and make the filesystem writable:
+Run:
 
 ```sh
 rpi-rw
 ```
+
+### Option A — Download directly on Pi-Star
+
+Run these commands in the Pi-Star SSH session:
+
+```sh
+cd ~
+wget -O pistar_cyd_bridge.py https://raw.githubusercontent.com/HS8MIO/MIO-CYD-Dashboard/main/Pi-Star/pistar_cyd_bridge.py
+wget -O pistar-cyd-bridge.service https://raw.githubusercontent.com/HS8MIO/MIO-CYD-Dashboard/main/Pi-Star/pistar-cyd-bridge.service
+```
+
+### Option B — Copy from your computer
+
+Copy these two files from this repository to the Pi-Star user's home directory using SCP or an SFTP client:
+
+- `Pi-Star/pistar_cyd_bridge.py`
+- `Pi-Star/pistar-cyd-bridge.service`
+
+### Install and enable the service
+
+If your CYD appears as `/dev/ttyUSB0`, continue. If it has a different device name, edit the service file first:
+
+```sh
+nano ~/pistar-cyd-bridge.service
+```
+
+Change the serial device at the end of the `ExecStart=` line to the device you identified.
 
 Install the files:
 
@@ -72,8 +96,6 @@ Install the files:
 sudo install -m 755 ~/pistar_cyd_bridge.py /usr/local/sbin/pistar_cyd_bridge.py
 sudo install -m 644 ~/pistar-cyd-bridge.service /etc/systemd/system/pistar-cyd-bridge.service
 ```
-
-If your CYD appears as a device other than `/dev/ttyUSB0`, edit the service file before installing it. Change the device at the end of the `ExecStart=` line to the serial device you identified.
 
 Reload systemd and start the bridge:
 
