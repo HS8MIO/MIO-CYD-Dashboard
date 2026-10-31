@@ -6,6 +6,22 @@ A serial dashboard for displaying Pi-Star MMDVM activity on an ESP32-based 2.8-i
 
 **This project adds a separate display to an existing Pi-Star installation. It does not include a Pi-Star image.**
 
+## Dashboard in action
+
+The photos below show the MIO CYD Dashboard connected to a Raspberry Pi running Pi-Star, alongside an Icom ID-51 during live D-Star operation.
+
+### Complete station setup
+
+![MIO CYD Dashboard system overview](docs/images/01-system-overview.jpg)
+
+### Dashboard close-up
+
+![MIO CYD Dashboard close-up with Icom ID-51](docs/images/02-dashboard-closeup.jpg)
+
+### Live transmission activity
+
+![MIO CYD Dashboard showing active transmission](docs/images/03-active-transmission.jpg)
+
 ## Recommended hardware
 
 - **Primary recommendation:** ESP32 CYD 2.8-inch (320×240) board.
@@ -34,6 +50,7 @@ A serial dashboard for displaying Pi-Star MMDVM activity on an ESP32-based 2.8-i
 - `CYD/CYD_28_MMDVM_Serial_Test_UI_Time_IP.ino` — ESP32 display firmware.
 - `Checksums/SHA256.txt` — SHA-256 checksums for the distributed files.
 - `docs/INSTALLATION.md` — installation guide.
+- `docs/images/` — real-world photos of the dashboard.
 - `BASELINE-INFO.txt` — Stable 1.0 baseline and verification notes.
 
 ## Stable 1.0 verification baseline
