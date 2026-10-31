@@ -1,6 +1,6 @@
 # MIO CYD Dashboard for Pi-Star
 
-[![Release](https://img.shields.io/badge/release-Stable%201.0-brightgreen)](https://github.com/HS8MIO/MIO-CYD-Dashboard/releases)
+**Status: Stable 1.0 baseline — 2026-10-31**
 
 A serial dashboard for displaying Pi-Star MMDVM activity on an ESP32-based 2.8-inch CYD (Cheap Yellow Display).
 
@@ -49,10 +49,6 @@ The bridge reads MMDVM log files and writes to the CYD serial device. It does no
 - The provided systemd service uses `/dev/ttyUSB0` by default.
 - The bridge expects Pi-Star MMDVM logs at `/var/log/pi-star/MMDVM-*.log`.
 - This is an initial community release. Hardware variants beyond the tested CYD baseline may need firmware adaptation.
-
-## Release
-
-Stable 1.0 — 2026-10-31.
 
 ## Credits
 
