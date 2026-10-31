@@ -1,0 +1,64 @@
+# MIO CYD Dashboard — Baseline Information
+
+Baseline: Stable 1.0
+Baseline date: 2026-10-31
+Project: MIO-CYD-Dashboard
+Maintainer: HS8MIO / MIO TECH
+
+## Verified system
+
+- Raspberry Pi 4 Model B
+- Pi-Star 4.2.3
+- Raspbian GNU/Linux 11 (bullseye)
+- Linux kernel 5.10.103-v7l+
+- ESP32 CYD 2.8-inch, 320×240
+- Display controller: ILI9341
+- TFT_eSPI
+- USB serial adapter: CH340/CH341
+- Serial device in the verified installation: /dev/ttyUSB0
+- Serial speed: 115200 baud
+
+## Dashboard fields
+
+- CALLSIGN
+- MODE
+- LINK STATUS
+- TX STATE (IDLE is displayed as "Stand by")
+- LAST RX
+- Pi-Star time
+- Pi-Star IP address
+- Device attribution: DEV MIOTECH By: HS8MIO
+
+## Pi-Star components
+
+- /usr/local/sbin/pistar_cyd_bridge.py
+- /etc/systemd/system/pistar-cyd-bridge.service
+- systemd service: pistar-cyd-bridge.service
+
+The bridge follows /var/log/pi-star/MMDVM-*.log and transmits updates to the CYD. It does not open the MMDVM modem port or change Pi-Star configuration.
+
+## Verified behavior
+
+- D-Star remote network headers update CALLSIGN, TX state, and LAST RX.
+- D-Star RF headers update CALLSIGN, TX state, and LAST RX.
+- Empty suffixes in remote network headers are handled by the parser.
+- TX returns to IDLE after end-of-transmission events.
+- Link status, Pi-Star time, and IP continue to update.
+- Live activity verified on REF087.
+- Live activity verified on XLX568 C.
+- The system was returned to read-only mode after testing.
+
+## Parser fix
+
+The Stable 1.0 parser handles network headers where the slash suffix is empty or contains a value, as well as RF headers. This was validated using the actual MMDVM log formats seen during testing.
+
+## Known limits
+
+- The baseline is verified on ESP32 CYD 2.8-inch (ESP32-2432S028 family).
+- ESP32-S3 2.8-inch variants are suggested only as hardware to evaluate; they are not verified by this baseline.
+- The default systemd service uses /dev/ttyUSB0. Other serial device names require updating ExecStart.
+- This repository does not include a Pi-Star image.
+
+## Original baseline file checksums
+
+See Checksums/SHA256.txt. Hashes identify the three distributed source files and are SHA-256 values calculated from the files in the local baseline package.
