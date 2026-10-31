@@ -1,0 +1,15 @@
+[Unit]
+Description=Pi-Star D-Star dashboard bridge to CYD
+After=local-fs.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/python3 /usr/local/sbin/pistar_cyd_bridge.py /dev/ttyUSB0
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
